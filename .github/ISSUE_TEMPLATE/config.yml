@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Team workflow
+    url: ../docs/team_workflow.md
+    about: Read the branch strategy, ownership plan, and ready-to-paste issue list.

@@ -292,7 +292,18 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     )
     st.bar_chart(probabilities, x="Outcome", y="Probability", color="#2563eb")
 
-    st.markdown("**Factors used by the trained model**")
+    st.markdown("**SHAP / Feature Log-Odds Contributions**")
+    
+    # Create a DataFrame for the SHAP/Feature weights to visualize them
+    explanation_rows = [
+        {"Feature": item["label"], "Impact (Log-Odds)": float(item["weight"])}
+        for item in result["explanation"]
+    ]
+    if explanation_rows:
+        explanation_df = pd.DataFrame(explanation_rows)
+        # Use a horizontal bar chart
+        st.bar_chart(explanation_df, x="Impact (Log-Odds)", y="Feature", horizontal=True, color="#dc2626")
+    
     for item in result["explanation"]:
         st.write(f"- **{item['label']}**: {item['effect']}")
 
@@ -300,7 +311,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
 
 
 def dataset_panel(df: pd.DataFrame | None) -> None:
-    st.markdown('<div class="section-label">Mock data review</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">Reconstructed Data Review</div>', unsafe_allow_html=True)
     st.subheader("Reconstructed Aggregate-Count Dataset")
     if df is None:
         st.warning(

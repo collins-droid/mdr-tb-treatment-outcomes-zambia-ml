@@ -48,7 +48,7 @@ with st.sidebar:
     else:
         st.info("Using local trained outcome model.")
 
-tab_screen, tab_data, tab_validity = st.tabs(["Assessment", "Mock Dataset", "Validation Notes"])
+tab_screen, tab_data, tab_validity = st.tabs(["Assessment", "Reconstructed Dataset", "Validation Notes"])
 
 with tab_screen:
     left, right = st.columns([0.9, 1.1], gap="large")

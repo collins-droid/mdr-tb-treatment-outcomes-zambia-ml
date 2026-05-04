@@ -132,7 +132,7 @@ def apply_page_styles() -> None:
             border-top: 1px solid var(--border);
             margin-top: 3rem;
             padding-top: 1.5rem;
-            color: var(--text-muted);
+            color: #ffffff !important;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -183,13 +183,6 @@ def patient_form() -> dict[str, object] | None:
             drtb_type = st.selectbox("DR-TB type", DRTB_TYPES)
             district = st.selectbox("District", DISTRICTS)
 
-        year_of_diagnosis = st.number_input(
-            "Year of diagnosis",
-            min_value=2017,
-            max_value=2026,
-            value=2021,
-            step=1,
-        )
         submitted = st.form_submit_button("Assess patient", type="primary", use_container_width=True)
 
     if not submitted:
@@ -202,7 +195,6 @@ def patient_form() -> dict[str, object] | None:
         "registration_group": registration_group,
         "drtb_type": drtb_type,
         "district": district,
-        "year_of_diagnosis": int(year_of_diagnosis),
     }
 
 
@@ -230,7 +222,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     st.markdown(
         f"""
         <div class="result-card">
-            <div class="small-muted">Poor-outcome risk</div>
+            <div class="small-muted">Model-estimated poor-outcome risk</div>
             <div class="risk-value">{risk:.1%}</div>
             <div class="risk-band">
                 Risk level: <span class="{css_class}">{level}</span><br>
@@ -271,6 +263,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     for item in result["explanation"]:
         st.write(f"- **{item['label']}**: {item['effect']}")
 
+    st.caption("⚠️ This prediction is decision-support only and should be reviewed by clinical staff.")
     st.caption(str(result["disclaimer"]))
 
 
@@ -300,6 +293,40 @@ def dataset_panel(df: pd.DataFrame | None) -> None:
         file_name="drtb_central_zambia_reconstructed_mock.csv",
         mime="text/csv",
     )
+
+
+def metrics_panel() -> None:
+    st.markdown('<div class="section-label">Model Evaluation Metrics</div>', unsafe_allow_html=True)
+    st.subheader("Performance on Reconstructed Test Set")
+
+    import json
+    from src.utils.helpers import project_path
+
+    metrics_path = project_path("models", "mdrtb_outcome_model_metrics.json")
+    if not metrics_path.exists():
+        st.warning("Metrics artifact not found. Please run the training pipeline.")
+        return
+
+    with open(metrics_path, "r") as f:
+        metrics = json.load(f)
+
+    cols = st.columns(3)
+    cols[0].metric("Accuracy", f"{metrics['accuracy']:.1%}")
+    cols[1].metric("Macro F1-Score", f"{metrics.get('f1_score', 0):.3f}")
+    cols[2].metric("ROC-AUC (OVR)", f"{metrics.get('roc_auc', 0):.3f}")
+
+    st.markdown("### Training Diagnostics")
+    curve_path = project_path("docs", "learning_curve.png")
+    if curve_path.exists():
+        st.image(str(curve_path), caption="Learning Curve (Accuracy vs Training Examples)", use_container_width=True)
+    else:
+        st.info("Learning curve visualization not found.")
+
+    with st.expander("Detailed classification report"):
+        st.json(metrics["classification_report"])
+    
+    st.caption(f"Model version: {metrics['model_version']}")
+    st.caption("Note: Metrics are based on a 25% hold-out test set of the reconstructed aggregate data.")
 
 
 def validity_panel() -> None:
@@ -336,8 +363,9 @@ def footer_logo() -> None:
     st.markdown('<div class="footer">', unsafe_allow_html=True)
     cols = st.columns([0.72, 0.28], vertical_alignment="center")
     with cols[0]:
-        st.caption(
-            "MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration."
+        st.markdown(
+            "<div style='color: white; font-size: 0.9rem;'>MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration.</div>",
+            unsafe_allow_html=True
         )
     with cols[1]:
         st.image(LOGO_PATH, use_container_width=True)

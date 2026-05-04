@@ -4,10 +4,14 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 from contextlib import redirect_stdout
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
+
+# Ensure project root is in sys.path when running as a script
+sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 
 import joblib
 

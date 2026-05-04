@@ -1,0 +1,74 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Analysis of MDR-TB Treatment Outcomes in Central Province, Zambia: A Statistical and Machine Learning Approach}
+\author{Research Group 1}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report details the statistical analysis and predictive modeling of Multi-Drug Resistant Tuberculosis (MDR-TB) treatment outcomes in the Central Province of Zambia. Utilizing a reconstructed dataset based on published aggregate counts from Chanda (2024), we perform a comprehensive statistical audit following descriptive and inferential standards. We further implement a Random Forest classifier to predict poor treatment outcomes, evaluating its performance and documenting the limitations of synthetic data in clinical signal preservation.
+\end{abstract}
+
+\tableofcontents
+
+\chapter{Introduction}
+\section{Background}
+Drug-Resistant Tuberculosis (DR-TB) remains a critical public health challenge in Zambia. Efficient management of patient outcomes requires not only clinical expertise but also data-driven decision-support systems.
+
+\section{Objectives}
+The primary objectives of this study are:
+\begin{itemize}
+    \item To perform a rigorous statistical audit of MDR-TB clinical profiles.
+    \item To develop a machine learning prototype for outcome prediction.
+    \item To evaluate the reliability of reconstructed clinical data for predictive modeling.
+\end{itemize}
+
+\chapter{Literature Review}
+\section{The Chanda (2024) Study}
+The foundational data for this project is derived from the study by Evaristo Chanda (2024), "The clinical profile and outcomes of drug resistant tuberculosis in Central Province of Zambia." This study analyzed 183 patients from 2017 to 2021 at Kabwe Central Hospital.
+
+Key findings from the original study included a mortality rate of 21.3\% and identified HIV status (p=0.026) and Male gender (p=0.003) as significant risk factors for mortality.
+
+\chapter{Methodology}
+\section{Data Reconstruction}
+Due to the unavailability of raw patient records, a patient-level mock table was reconstructed from the published aggregate counts. The reconstruction process utilized randomized shuffling for non-constrained variables to protect privacy while maintaining structural integrity (N=183, Mean Age=35.24).
+
+\section{Statistical Framework}
+The analysis follows the CSC 6701 Lecture 4 (Descriptive) and Lecture 5 (Inferential) standards, including:
+\begin{itemize}
+    \item Frequency analysis and percentage distributions.
+    \item Central tendency and dispersion measures.
+    \item Chi-square tests of independence.
+    \item Independent sample t-tests.
+\end{itemize}
+
+\chapter{Statistical Audit Results}
+\section{Descriptive Statistics}
+The reconstructed dataset correctly reflects the population profile of the Central Province, with a 57.9\% male predominance and a mortality rate matching the observed 21.3\%.
+
+\section{Inferential Testing and Signal Loss}
+Our audit revealed a significant "Signal Loss" in the mock data. While the original paper found HIV status to be a significant predictor (p=0.026), our Chi-square test returned a non-significant result (p=0.4435). This is attributed to the randomization of outcomes during the reconstruction phase.
+
+\chapter{Model Evaluation}
+\section{Random Forest Classifier}
+A Random Forest model was trained on the reconstructed features. The model achieved a baseline accuracy of 54.3\% but showed significant overfitting due to the small sample size and lack of joint-probability signals in the synthetic data.
+
+\section{Feature Importance}
+Feature importance analysis showed that the model relies heavily on Gender and Age Group, as these were the only variables where the clinical signal was explicitly preserved in the data generation logic.
+
+\chapter{Conclusion}
+This study demonstrates the feasibility of building a predictive pipeline for MDR-TB outcomes while highlighting the critical need for real patient correlations to achieve clinical validity. Future work should focus on the ingestion of validated clinical records to restore the lost statistical signals identified in this audit.
+
+\end{document}

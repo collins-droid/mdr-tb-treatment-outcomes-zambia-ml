@@ -1,0 +1,33 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{The Clinical Profile and Outcomes of Drug Resistant Tuberculosis in Central Province of Zambia}
+\author{Research Group 1}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report details the statistical analysis and predictive modeling of Multi-Drug Resistant Tuberculosis (MDR-TB) treatment outcomes in the Central Province of Zambia. Utilizing a reconstructed dataset based on published aggregate counts from Chanda (2024), we perform a comprehensive statistical audit following descriptive and inferential standards. We further implement a Random Forest classifier to predict poor treatment outcomes, evaluating its performance and documenting the limitations of synthetic data in clinical signal preservation.
+\end{abstract}
+
+\tableofcontents
+
+\include{chapters/introduction}
+\include{chapters/literature_review}
+\include{chapters/methodology}
+\include{chapters/statistical_audit}
+\include{chapters/model_evaluation}
+\include{chapters/conclusion}
+
+\end{document}

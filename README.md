@@ -64,7 +64,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/team_workflow.md](docs/team_wor
 - Keep the reconstructed-data limitation clearly documented for academic review.
 - Add clinical review before any pilot deployment.
 
-For detailed model comparison and metrics, see [docs/findings.md](docs/findings.md).
+## Clinical Signal Verification (Audit)
+
+We performed a formal clinical signal audit by comparing our reconstructed mock dataset against the original findings reported in the **Chanda (2024)** research paper.
+
+- **Structural Accuracy**: The dataset perfectly matches the paper's aggregate counts (N=183, Mean Age=35.2, 21.3% Mortality).
+- **Signal Discovery**: Our audit revealed that while the totals are correct, most clinical signals (like the HIV-mortality link) were lost during reconstruction due to randomized shuffling.
+- **Model Limitation**: Currently, the model is primarily learning from **Gender** and **Age Group** signals, as these were the only variables explicitly constrained to match the original research findings.
+
+For the full statistical audit and p-value comparison, see [docs/findings.md](docs/findings.md).
 
 ## Model Findings & Fixes
 

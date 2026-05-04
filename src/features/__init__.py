@@ -1,1 +1,1 @@
-"""Planned feature engineering package."""
+"""Feature engineering package."""

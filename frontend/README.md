@@ -1,11 +1,18 @@
-# Frontend
+# Streamlit Frontend
 
-This folder is reserved for the clinician-facing application.
+This folder contains the Streamlit prototype for the clinician-facing application.
 
-Recommended first implementation:
+## Run Locally
 
-- React web app for desktop and tablet clinics.
-- Patient data form.
-- Prediction result panel with risk level.
-- Patient-level explanation list.
-- Offline-friendly storage strategy after the first API prototype is stable.
+```bash
+streamlit run frontend/app.py
+```
+
+## Current Scope
+
+- Demonstrates a fast-deployable Streamlit UI.
+- Provides a trained-model assessment screen for the academic prototype.
+- Generates and previews the reconstructed project dataset from published summary counts.
+- Keeps methodological limitations visible for academic review.
+
+This app is not clinically validated and must not be used for patient care.

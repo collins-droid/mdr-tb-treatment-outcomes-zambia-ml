@@ -1,1 +1,1 @@
-"""Planned API package for the future FastAPI backend."""
+"""FastAPI backend package for the MDR-TB prototype."""

@@ -1,1 +1,1 @@
-"""Planned model training, evaluation, and prediction package."""
+"""Model training, evaluation, and prediction package."""

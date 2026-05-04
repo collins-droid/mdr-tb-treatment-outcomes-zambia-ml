@@ -1,21 +1,62 @@
-.venv/
+# Python bytecode and caches
 __pycache__/
+*.py[cod]
+*$py.class
 .pytest_cache/
-*.pyc
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
 
-# Clinical data and generated artifacts
+# Virtual environments and local tooling
+.venv/
+venv/
+env/
+ENV/
+.python-version
+.ipynb_checkpoints/
+
+# Streamlit and local app state
+.streamlit/secrets.toml
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+tmp/
+temp/
+
+# OS/editor metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+*Zone.Identifier*
+
+# Clinical data and generated datasets
 data/raw/*
 data/processed/*
 data/external/*
-models/*
 
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/external/.gitkeep
+!data/external/circular_data_gen.py
+
+# Model artifacts: keep only the reviewed project artifact and metrics
+models/*
 !models/.gitkeep
+!models/mdrtb_outcome_model.joblib
+!models/mdrtb_outcome_model_metrics.json
 
-# Local configuration
-.env
-
-# Windows/WSL download metadata sidecars
-*Zone.Identifier*
+# Build/package outputs
+build/
+dist/
+*.egg-info/

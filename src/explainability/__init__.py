@@ -1,1 +1,1 @@
-"""Planned model explainability package."""
+"""Model explainability package."""

@@ -28,3 +28,21 @@ The baseline Logistic Regression served its purpose by validating the pipeline a
 - Do not attempt further hyperparameter tuning on the synthetic dataset.
 - Await the integration of real, correlated patient records before optimizing the Random Forest or switching to XGBoost.
 - The UI explainer module has been successfully updated to parse `feature_importances_` from the Random Forest instead of relying on linear coefficients, ensuring the application remains robust regardless of the underlying algorithm.
+
+## Phase 4: Statistical Audit Findings (Colab Analysis)
+
+We performed a comprehensive statistical audit following Lecture 4 & 5 standards to validate the reconstructed dataset's clinical utility.
+
+### 1. Descriptive Insights
+- **Population Profile**: The dataset correctly reflects the Central Province profile with a mean age of ~35.2 years and a male predominance (57.9%).
+- **Outcome Distribution**: The 21.3% mortality rate matches the paper's reported aggregate statistics.
+
+### 2. Inferential Testing (The "Signal Loss" Discovery)
+- **HIV vs Outcome**: Chi-square testing returned a p-value of **0.4435**, indicating no statistically significant association between HIV status and treatment outcome in the current dataset.
+- **Age vs Outcome**: Independent T-tests returned a p-value of **0.8671**, indicating no significant difference in mean age between success and poor outcome groups.
+- **Conclusion**: These results confirm that while the dataset matches *marginal* counts (total deaths, total HIV+), it lacks the *conditional* correlations present in real patient records (e.g., the known clinical link between HIV and mortality). This provides a clear statistical "red flag" that the model's predictions on this mock data should not be used for clinical inference.
+
+### 3. Feature Importance (Random Forest)
+- The Random Forest model defaults to **Gender** and **Age Group** as primary predictors because these were the only variables explicitly constrained to mortality in the reconstruction logic.
+- Other variables (District, HIV Status) appear as low-importance "noise" in the current model state.
+

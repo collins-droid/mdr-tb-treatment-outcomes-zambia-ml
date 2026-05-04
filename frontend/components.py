@@ -248,21 +248,43 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     )
     st.bar_chart(probabilities, x="Outcome", y="Probability", color="#2563eb")
 
-    st.markdown("**SHAP / Feature Log-Odds Contributions**")
-    
-    # Create a DataFrame for the SHAP/Feature weights to visualize them
+    st.markdown("**Feature Contributions (Gini Importance × Patient Value)**")
+
     explanation_rows = [
-        {"Feature": item["label"], "Impact (Log-Odds)": float(item["weight"])}
+        {"Feature": item["label"], "Contribution": float(item["weight"])}
         for item in result["explanation"]
     ]
     if explanation_rows:
-        explanation_df = pd.DataFrame(explanation_rows)
-        # Use a horizontal bar chart
-        st.bar_chart(explanation_df, x="Impact (Log-Odds)", y="Feature", horizontal=True, color="#e62b32")
-    
+        import matplotlib.pyplot as plt
+        import numpy as np
+
+        exp_df = pd.DataFrame(explanation_rows).sort_values("Contribution", key=abs, ascending=True)
+
+        fig, ax = plt.subplots(figsize=(9, max(4, len(exp_df) * 0.7)))
+        colors = ["#e62b32" if v >= 0 else "#38b054" for v in exp_df["Contribution"]]
+        ax.barh(exp_df["Feature"], exp_df["Contribution"], color=colors)
+        ax.axvline(0, color="white", linewidth=1)
+        ax.set_xlabel("Contribution to model output (log-odds scale)")
+        ax.set_ylabel("")
+        ax.set_title("Top Feature Contributions", color="white")
+        ax.tick_params(colors="white")
+        ax.xaxis.label.set_color("white")
+        ax.set_facecolor("#1e1e1e")
+        fig.patch.set_facecolor("#1e1e1e")
+        ax.spines[:].set_color("#333333")
+        plt.tight_layout()
+        st.pyplot(fig)
+        plt.close(fig)
+
+    st.markdown("**Plain-English Explanation**")
     for item in result["explanation"]:
         st.write(f"- **{item['label']}**: {item['effect']}")
 
+    st.caption(
+        "ℹ️ Contributions are expressed in log-odds scale. A value of 0.06 log-odds increases the "
+        "predicted odds by ~6%, not 6 percentage points. These describe model behaviour on this "
+        "dataset and are not causal clinical evidence."
+    )
     st.caption("⚠️ This prediction is decision-support only and should be reviewed by clinical staff.")
     st.caption(str(result["disclaimer"]))
 

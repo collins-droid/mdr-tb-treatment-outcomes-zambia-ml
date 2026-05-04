@@ -63,6 +63,13 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/team_workflow.md](docs/team_wor
 - Keep the reconstructed-data limitation clearly documented for academic review.
 - Add clinical review before any pilot deployment.
 
+## Model Findings & Fixes
+
+During the recent transition to a production-ready prototype, a significant model behavior issue was identified and resolved:
+- **Overconfident Mortality Prediction Issue:** The model was originally predicting a disproportionately high probability for "Died" and other minority classes. 
+- **Cause & Fix:** The overconfidence was caused by the `class_weight="balanced"` hyperparameter in `LogisticRegression`, which forced the model to artificially upweight the baseline probabilities for minority classes. By removing `class_weight="balanced"`, the model probability baseline correctly matches the observed class distribution. As a result, the classification accuracy improved from ~34.7% to 60.8%.
+- **Year of Diagnosis Review:** Initial theories suggested the `year_of_diagnosis` variable was causing leakage/censoring bias. A codebase review showed `year_of_diagnosis` was never actually included in the model's predictive features; it was merely a vestigial UI input. To prevent further confusion about potential data leakage, `year_of_diagnosis` was removed entirely from the UI intake form.
+
 ## Important Clinical Note
 
 This repository is currently a research and engineering prototype. It must not be used for real clinical decisions until the data pipeline, model performance, calibration, bias checks, clinical validation, security controls, and deployment process have been reviewed and approved by qualified clinical and governance stakeholders.

@@ -132,7 +132,7 @@ def apply_page_styles() -> None:
             border-top: 1px solid var(--border);
             margin-top: 3rem;
             padding-top: 1.5rem;
-            color: var(--text-muted);
+            color: #ffffff !important;
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -329,8 +329,9 @@ def footer_logo() -> None:
     st.markdown('<div class="footer">', unsafe_allow_html=True)
     cols = st.columns([0.72, 0.28], vertical_alignment="center")
     with cols[0]:
-        st.caption(
-            "MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration."
+        st.markdown(
+            "<div style='color: white; font-size: 0.9rem;'>MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration.</div>",
+            unsafe_allow_html=True
         )
     with cols[1]:
         st.image(LOGO_PATH, use_container_width=True)

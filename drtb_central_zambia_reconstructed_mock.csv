@@ -1,0 +1,184 @@
+patient_id,year_of_diagnosis,age_years,age_group,gender,district,registration_group,hiv_status,site_of_drtb,drtb_type,outcome,died,treatment_success,lost_to_followup,age_group_code,is_male,hiv_positive
+DRTB-0001,2017,36.3,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0002,2018,33.7,26-35,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0003,2021,33.1,26-35,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,3,0,0
+DRTB-0004,2017,41.9,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,MDR-TB,Died,1,0,0,4,0,1
+DRTB-0005,2020,39.2,36-45,Male,Chibombo,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,1,1
+DRTB-0006,2018,53.2,Above45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0007,2020,43.4,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0008,2017,30.4,26-35,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0009,2018,20.9,16-25,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,2,0,0
+DRTB-0010,2020,30.3,26-35,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,3,1,0
+DRTB-0011,2021,52.7,Above45,Male,Mkushi,Relapse,Unknown,Pulmonary,RR-TB,Still on Treatment,0,0,0,5,1,0
+DRTB-0012,2021,53.2,Above45,Male,Chibombo,New,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,5,1,1
+DRTB-0013,2018,63.2,Above45,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,5,0,0
+DRTB-0014,2019,42.3,36-45,Female,Kabwe,After loss to FU,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,0,1
+DRTB-0015,2021,24.5,16-25,Female,Mumbwa,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,0
+DRTB-0016,2018,34.8,26-35,Female,Kabwe,Other,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0017,2017,32.4,26-35,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0018,2017,1.5,0-15,Male,Other,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,1,1,0
+DRTB-0019,2020,40.0,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0020,2017,54.5,Above45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,0
+DRTB-0021,2021,8.3,0-15,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,1,0,0
+DRTB-0022,2021,42.8,36-45,Female,Kapiri Mposhi,Relapse,Negative,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,0,0
+DRTB-0023,2018,24.3,16-25,Female,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,2,0,0
+DRTB-0024,2020,60.3,Above45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0025,2021,44.8,36-45,Male,Kapiri Mposhi,New,Unknown,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,1,0
+DRTB-0026,2018,31.1,26-35,Male,Chibombo,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0027,2020,22.3,16-25,Male,Chitambo,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,1,1
+DRTB-0028,2017,48.5,Above45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0029,2018,41.3,36-45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,1,1
+DRTB-0030,2017,42.4,36-45,Male,Kapiri Mposhi,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0031,2020,29.6,26-35,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0032,2018,28.6,26-35,Female,Chibombo,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0033,2017,46.8,Above45,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,5,1,1
+DRTB-0034,2017,33.5,26-35,Male,Kabwe,Relapse,Positive,Pulmonary,MDR-TB,Cured,0,1,0,3,1,1
+DRTB-0035,2018,2.3,0-15,Male,Mkushi,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,1,1,1
+DRTB-0036,2019,26.7,26-35,Male,Kapiri Mposhi,Relapse,Negative,Pulmonary,MDR-TB,Died,1,0,0,3,1,0
+DRTB-0037,2020,41.2,36-45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0038,2021,28.1,26-35,Female,Kapiri Mposhi,New,Positive,Pulmonary,RR-TB,Died,1,0,0,3,0,1
+DRTB-0039,2018,41.5,36-45,Male,Mumbwa,New,Unknown,Extrapulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0040,2020,33.7,26-35,Male,Mkushi,Relapse,Negative,Pulmonary,MDR-TB,Cured,0,1,0,3,1,0
+DRTB-0041,2018,31.8,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0042,2018,8.6,0-15,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,1,1,1
+DRTB-0043,2018,60.8,Above45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,5,1,1
+DRTB-0044,2017,40.8,36-45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0045,2017,19.8,16-25,Female,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,2,0,1
+DRTB-0046,2019,37.7,36-45,Male,Kabwe,New,Unknown,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0047,2018,38.3,36-45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,4,1,0
+DRTB-0048,2018,31.2,26-35,Female,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Died,1,0,0,3,0,0
+DRTB-0049,2018,47.0,Above45,Female,Chibombo,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,0,0
+DRTB-0050,2021,18.3,16-25,Female,Kabwe,New,Unknown,Pulmonary,RR-TB,Still on Treatment,0,0,0,2,0,0
+DRTB-0051,2019,28.6,26-35,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,0
+DRTB-0052,2020,42.8,36-45,Female,Chibombo,Relapse,Unknown,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,0
+DRTB-0053,2020,52.3,Above45,Male,Chisamba,Relapse,Negative,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,5,1,0
+DRTB-0054,2018,23.9,16-25,Female,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,0
+DRTB-0055,2019,32.4,26-35,Male,Chibombo,New,Positive,Pulmonary,MDR-TB,Died,1,0,0,3,1,1
+DRTB-0056,2021,46.2,Above45,Male,Mumbwa,New,Positive,Pulmonary,RR-TB,Died,1,0,0,5,1,1
+DRTB-0057,2021,21.9,16-25,Female,Kabwe,Relapse,Positive,Pulmonary,MDR-TB,Still on Treatment,0,0,0,2,0,1
+DRTB-0058,2019,40.2,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0059,2020,38.6,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,4,1,1
+DRTB-0060,2018,19.6,16-25,Male,Kapiri Mposhi,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,1,0
+DRTB-0061,2018,52.1,Above45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,0
+DRTB-0062,2018,27.9,26-35,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,3,1,1
+DRTB-0063,2018,38.9,36-45,Male,Chisamba,Relapse,Negative,Pulmonary,MDR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0064,2018,24.5,16-25,Male,Kapiri Mposhi,Relapse,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,2,1,1
+DRTB-0065,2018,32.4,26-35,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0066,2017,20.3,16-25,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,2,0,1
+DRTB-0067,2020,34.0,26-35,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,0
+DRTB-0068,2018,7.1,0-15,Female,Kabwe,Other,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,1,0,1
+DRTB-0069,2018,29.2,26-35,Male,Kabwe,New,Negative,Pulmonary,MDR-TB,Cured,0,1,0,3,1,0
+DRTB-0070,2021,44.0,36-45,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,4,0,0
+DRTB-0071,2019,19.2,16-25,Female,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Died,1,0,0,2,0,0
+DRTB-0072,2019,41.7,36-45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0073,2021,44.7,36-45,Male,Kabwe,Relapse,Unknown,Pulmonary,RR-TB,Died,1,0,0,4,1,0
+DRTB-0074,2021,34.0,26-35,Male,Kapiri Mposhi,New,Negative,Pulmonary,RR-TB,Still on Treatment,0,0,0,3,1,0
+DRTB-0075,2019,40.2,36-45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0076,2017,17.3,16-25,Female,Chibombo,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,1
+DRTB-0077,2020,18.2,16-25,Male,Kapiri Mposhi,Other,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,1,1
+DRTB-0078,2018,40.9,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,0,1
+DRTB-0079,2017,31.3,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0080,2019,40.1,36-45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,4,1,0
+DRTB-0081,2018,55.3,Above45,Male,Kabwe,Transfer in,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0082,2021,33.6,26-35,Female,Chibombo,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0083,2020,32.0,26-35,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0084,2017,22.1,16-25,Female,Kapiri Mposhi,New,Negative,Pulmonary,RR-TB,Died,1,0,0,2,0,0
+DRTB-0085,2020,40.4,36-45,Female,Chibombo,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,0
+DRTB-0086,2018,41.4,36-45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0087,2018,60.1,Above45,Male,Kapiri Mposhi,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0088,2018,29.5,26-35,Male,Other,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0089,2019,22.6,16-25,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,2,0,1
+DRTB-0090,2019,20.1,16-25,Female,Other,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,0
+DRTB-0091,2018,57.2,Above45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,5,1,0
+DRTB-0092,2021,32.0,26-35,Male,Chibombo,New,Negative,Pulmonary,RR-TB,Still on Treatment,0,0,0,3,1,0
+DRTB-0093,2020,29.3,26-35,Female,Kabwe,Relapse,Positive,Pulmonary,MDR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0094,2021,19.9,16-25,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,2,1,1
+DRTB-0095,2020,29.7,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0096,2021,30.1,26-35,Female,Kabwe,New,Negative,Pulmonary,MDR-TB,Still on Treatment,0,0,0,3,0,0
+DRTB-0097,2021,39.5,36-45,Female,Kapiri Mposhi,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0098,2018,33.9,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0099,2021,41.4,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,1,1
+DRTB-0100,2021,40.9,36-45,Male,Serenje,Relapse,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,1,1
+DRTB-0101,2019,40.5,36-45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0102,2017,21.2,16-25,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,0
+DRTB-0103,2017,20.0,16-25,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,2,1,0
+DRTB-0104,2020,29.7,26-35,Female,Kapiri Mposhi,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,0
+DRTB-0105,2018,31.5,26-35,Male,Kabwe,Transfer in,Positive,Pulmonary,MDR-TB,Cured,0,1,0,3,1,1
+DRTB-0106,2019,40.6,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,4,1,1
+DRTB-0107,2020,57.9,Above45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,5,1,1
+DRTB-0108,2021,28.2,26-35,Female,Other,After loss to FU,Negative,Pulmonary,XDR-TB,Still on Treatment,0,0,0,3,0,0
+DRTB-0109,2020,43.3,36-45,Female,Chibombo,Relapse,Positive,Pulmonary,IR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0110,2020,44.1,36-45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0111,2019,27.3,26-35,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0112,2018,20.9,16-25,Male,Kapiri Mposhi,New,Positive,Pulmonary,RR-TB,Died,1,0,0,2,1,1
+DRTB-0113,2021,4.2,0-15,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,1,0,1
+DRTB-0114,2020,69.5,Above45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,5,1,1
+DRTB-0115,2018,38.7,36-45,Female,Mkushi,Relapse,Negative,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,4,0,0
+DRTB-0116,2020,31.9,26-35,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,3,0,0
+DRTB-0117,2021,40.5,36-45,Male,Kapiri Mposhi,Relapse,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,1,1
+DRTB-0118,2021,28.5,26-35,Female,Serenje,Relapse,Unknown,Pulmonary,RR-TB,Still on Treatment,0,0,0,3,0,0
+DRTB-0119,2018,41.5,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0120,2020,19.6,16-25,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,1,0
+DRTB-0121,2019,28.2,26-35,Female,Serenje,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0122,2020,43.5,36-45,Female,Other,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0123,2019,39.4,36-45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0124,2019,34.4,26-35,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0125,2021,29.4,26-35,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0126,2018,34.2,26-35,Female,Other,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,0
+DRTB-0127,2019,22.3,16-25,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,2,1,1
+DRTB-0128,2020,76.3,Above45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,0
+DRTB-0129,2020,40.9,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0130,2017,43.3,36-45,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0131,2018,33.3,26-35,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,1
+DRTB-0132,2020,21.5,16-25,Male,Chitambo,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,2,1,1
+DRTB-0133,2020,23.6,16-25,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,1
+DRTB-0134,2021,44.5,36-45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,4,1,1
+DRTB-0135,2020,56.8,Above45,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0136,2019,29.0,26-35,Male,Other,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0137,2018,30.0,26-35,Female,Kabwe,Relapse,Unknown,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,0,0
+DRTB-0138,2019,34.8,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0139,2021,40.1,36-45,Male,Other,Relapse,Negative,Pulmonary,RR-TB,Died,1,0,0,4,1,0
+DRTB-0140,2018,43.3,36-45,Male,Chisamba,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,1,1
+DRTB-0141,2019,38.5,36-45,Male,Kabwe,New,Positive,Pulmonary,MDR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0142,2018,68.5,Above45,Female,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,0,0
+DRTB-0143,2017,56.7,Above45,Female,Kabwe,Relapse,Unknown,Pulmonary,RR-TB,Died,1,0,0,5,0,0
+DRTB-0144,2018,29.7,26-35,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,3,1,0
+DRTB-0145,2019,62.9,Above45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,5,0,1
+DRTB-0146,2018,33.5,26-35,Male,Mkushi,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,1,1
+DRTB-0147,2019,53.2,Above45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0148,2019,33.0,26-35,Female,Mkushi,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,3,0,1
+DRTB-0149,2019,28.7,26-35,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0150,2020,51.8,Above45,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,1
+DRTB-0151,2018,28.5,26-35,Female,Kabwe,Relapse,Positive,Pulmonary,MDR-TB,Died,1,0,0,3,0,1
+DRTB-0152,2018,43.5,36-45,Male,Kapiri Mposhi,New,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0153,2019,56.1,Above45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,5,1,0
+DRTB-0154,2019,41.7,36-45,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,4,1,0
+DRTB-0155,2019,22.5,16-25,Male,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,2,1,1
+DRTB-0156,2019,16.5,16-25,Female,Other,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,2,0,1
+DRTB-0157,2021,53.3,Above45,Female,Kapiri Mposhi,Other,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,0,1
+DRTB-0158,2017,38.4,36-45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,0,1
+DRTB-0159,2018,34.6,26-35,Male,Other,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,1
+DRTB-0160,2018,30.8,26-35,Male,Kabwe,Relapse,Negative,Pulmonary,RR-TB,Died,1,0,0,3,1,0
+DRTB-0161,2018,23.7,16-25,Female,Mumbwa,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,2,0,1
+DRTB-0162,2019,37.4,36-45,Male,Chisamba,Other,Negative,Pulmonary,MDR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0163,2021,29.6,26-35,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,3,0,1
+DRTB-0164,2019,44.4,36-45,Female,Other,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,1
+DRTB-0165,2020,39.7,36-45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,1
+DRTB-0166,2020,38.0,36-45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Died,1,0,0,4,1,0
+DRTB-0167,2021,44.5,36-45,Male,Kabwe,New,Positive,Pulmonary,MDR-TB,Still on Treatment,0,0,0,4,1,1
+DRTB-0168,2017,74.9,Above45,Male,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Cured,0,1,0,5,1,1
+DRTB-0169,2018,39.3,36-45,Male,Mkushi,New,Positive,Pulmonary,RR-TB,Cured,0,1,0,4,1,1
+DRTB-0170,2019,41.0,36-45,Male,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,1,0
+DRTB-0171,2020,30.8,26-35,Male,Mumbwa,Relapse,Positive,Pulmonary,MDR-TB,Died,1,0,0,3,1,1
+DRTB-0172,2018,38.0,36-45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0173,2017,19.8,16-25,Female,Mumbwa,Relapse,Negative,Pulmonary,RR-TB,Cured,0,1,0,2,0,0
+DRTB-0174,2021,29.6,26-35,Male,Kabwe,Transfer in,Unknown,Pulmonary,MDR-TB,Still on Treatment,0,0,0,3,1,0
+DRTB-0175,2019,44.7,36-45,Female,Kapiri Mposhi,Relapse,Positive,Pulmonary,RR-TB,Died,1,0,0,4,0,1
+DRTB-0176,2017,40.4,36-45,Female,Kabwe,New,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,4,0,0
+DRTB-0177,2021,73.0,Above45,Female,Kabwe,New,Positive,Pulmonary,RR-TB,Died,1,0,0,5,0,1
+DRTB-0178,2017,62.3,Above45,Male,Kabwe,Other,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,5,1,0
+DRTB-0179,2021,32.8,26-35,Male,Mumbwa,Relapse,Positive,Pulmonary,RR-TB,Lost to Follow Up,0,0,1,3,1,1
+DRTB-0180,2020,49.0,Above45,Male,Kabwe,Other,Positive,Pulmonary,RR-TB,Cured,0,1,0,5,1,1
+DRTB-0181,2017,26.2,26-35,Male,Serenje,Relapse,Negative,Pulmonary,RR-TB,Treatment Completed,0,1,0,3,1,0
+DRTB-0182,2017,39.1,36-45,Female,Kapiri Mposhi,Relapse,Negative,Pulmonary,RR-TB,Died,1,0,0,4,0,0
+DRTB-0183,2021,31.9,26-35,Female,Kabwe,Relapse,Positive,Pulmonary,RR-TB,Still on Treatment,0,0,0,3,0,1

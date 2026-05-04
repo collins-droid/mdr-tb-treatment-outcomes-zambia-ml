@@ -20,87 +20,171 @@ def apply_page_styles() -> None:
     st.markdown(
         """
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+        
         :root {
-            --ink: #172033;
-            --muted: #5f6b7a;
-            --line: #d9dee7;
-            --panel: #ffffff;
-            --soft: #f6f8fb;
-            --brand: #14532d;
-            --accent: #2563eb;
-            --warn: #92400e;
-            --danger: #991b1b;
+            --ink: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --panel: rgba(255, 255, 255, 0.85);
+            --soft: rgba(248, 250, 252, 0.6);
+            --brand: #2563eb;
+            --accent: #3b82f6;
+            --warn: #ea580c;
+            --danger: #dc2626;
         }
 
-        .stApp { background: #f4f7fb; }
-        .block-container { padding-top: 1.25rem; max-width: 1240px; }
+        .stApp { 
+            background: linear-gradient(135deg, #f0f4fd 0%, #e0eafc 100%); 
+        }
+        
+        html, body, [class*="css"] {
+            font-family: 'Outfit', sans-serif !important;
+        }
 
-        h1, h2, h3 { color: var(--ink); letter-spacing: 0; }
+        .block-container { 
+            padding-top: 2rem; 
+            max-width: 1200px; 
+        }
+
+        h1, h2, h3 { color: var(--ink); letter-spacing: -0.02em; font-family: 'Outfit', sans-serif !important; }
         p, label, .stMarkdown, [data-testid="stCaptionContainer"] { color: var(--muted); }
 
         .tool-header {
-            border-bottom: 1px solid var(--line);
-            padding: 0.25rem 0 1rem 0;
-            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .tool-header:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 50px -10px rgba(37, 99, 235, 0.15);
         }
         .tool-title {
-            font-size: 1.95rem;
-            line-height: 1.2;
-            font-weight: 720;
-            color: var(--ink);
-            margin: 0;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            font-weight: 800;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .tool-subtitle {
             color: var(--muted);
-            margin-top: 0.35rem;
-            font-size: 0.98rem;
+            font-size: 1.1rem;
+            font-weight: 400;
         }
         .section-label {
             color: var(--brand);
-            font-size: 0.78rem;
-            font-weight: 720;
+            font-size: 0.85rem;
+            font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 0.15rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4rem;
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
         }
         .result-card {
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            background: var(--panel);
-            padding: 1rem;
-            margin-bottom: 0.9rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 4px 20px -5px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .result-card:hover {
+            box-shadow: 0 8px 30px -5px rgba(0,0,0,0.08);
+            transform: scale(1.01);
         }
         .risk-band {
-            border-radius: 8px;
-            padding: 0.85rem 1rem;
-            margin: 0.3rem 0 0.9rem 0;
-            border: 1px solid var(--line);
-            background: var(--soft);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 0.5rem 0 1rem 0;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            background: linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(248, 250, 252, 0.8) 100%);
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.01);
         }
-        .risk-low { color: #166534; font-weight: 760; }
-        .risk-medium { color: var(--warn); font-weight: 760; }
-        .risk-high { color: var(--danger); font-weight: 760; }
+        .risk-low { color: #059669; font-weight: 800; background: rgba(5, 150, 105, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px; }
+        .risk-medium { color: #ea580c; font-weight: 800; background: rgba(234, 88, 12, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px; }
+        .risk-high { color: #dc2626; font-weight: 800; background: rgba(220, 38, 38, 0.1); padding: 0.2rem 0.5rem; border-radius: 4px; }
         .risk-value {
-            font-size: 2.25rem;
-            line-height: 1.05;
-            font-weight: 760;
+            font-size: 3.5rem;
+            line-height: 1;
+            font-weight: 800;
             color: var(--ink);
+            margin: 0.5rem 0;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
-        .small-muted { color: var(--muted); font-size: 0.88rem; }
-        .footer {
-            border-top: 1px solid var(--line);
-            margin-top: 2rem;
-            padding-top: 1rem;
-            color: var(--muted);
-            font-size: 0.86rem;
+        .small-muted { color: var(--muted); font-size: 0.9rem; font-weight: 500; }
+        
+        div[data-testid="stForm"] {
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(10px) !important;
+            border-radius: 20px !important;
+            border: 1px solid rgba(255,255,255,0.9) !important;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05) !important;
+            padding: 2rem !important;
         }
+
+        .stButton>button {
+            border-radius: 12px !important;
+            font-weight: 600 !important;
+            height: 3rem !important;
+            transition: all 0.2s ease !important;
+            border: none !important;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px -3px rgba(37, 99, 235, 0.4) !important;
+        }
+        .stButton>button:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px -5px rgba(37, 99, 235, 0.5) !important;
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%) !important;
+        }
+
         div[data-testid="stMetric"] {
-            border: 1px solid var(--line);
-            border-radius: 8px;
-            padding: 12px 14px;
-            background: var(--panel);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-radius: 16px;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px -5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
         }
-        div[data-testid="stTabs"] button p { font-size: 0.95rem; }
-        .stAlert { border-radius: 8px; }
+        div[data-testid="stMetric"]:hover {
+            transform: translateY(-3px);
+        }
+        
+        .footer {
+            border-top: 1px solid rgba(226, 232, 240, 0.8);
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            color: var(--muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        div[data-testid="stTabs"] button {
+            font-family: 'Outfit', sans-serif !important;
+            font-size: 1.05rem !important;
+            font-weight: 600 !important;
+        }
+        
+        .stAlert { 
+            border-radius: 12px; 
+            border: none !important;
+            box-shadow: 0 4px 15px -5px rgba(0,0,0,0.05);
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -208,7 +292,18 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     )
     st.bar_chart(probabilities, x="Outcome", y="Probability", color="#2563eb")
 
-    st.markdown("**Factors used by the trained model**")
+    st.markdown("**SHAP / Feature Log-Odds Contributions**")
+    
+    # Create a DataFrame for the SHAP/Feature weights to visualize them
+    explanation_rows = [
+        {"Feature": item["label"], "Impact (Log-Odds)": float(item["weight"])}
+        for item in result["explanation"]
+    ]
+    if explanation_rows:
+        explanation_df = pd.DataFrame(explanation_rows)
+        # Use a horizontal bar chart
+        st.bar_chart(explanation_df, x="Impact (Log-Odds)", y="Feature", horizontal=True, color="#dc2626")
+    
     for item in result["explanation"]:
         st.write(f"- **{item['label']}**: {item['effect']}")
 
@@ -216,7 +311,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
 
 
 def dataset_panel(df: pd.DataFrame | None) -> None:
-    st.markdown('<div class="section-label">Mock data review</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-label">Reconstructed Data Review</div>', unsafe_allow_html=True)
     st.subheader("Reconstructed Aggregate-Count Dataset")
     if df is None:
         st.warning(

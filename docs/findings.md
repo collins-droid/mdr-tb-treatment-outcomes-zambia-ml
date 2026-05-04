@@ -76,3 +76,59 @@ Our dataset is a perfect **structural replica** (it looks right and has the righ
 
 This confirms that the model's predictions on this mock data are for **software demonstration and pipeline testing only**, as they lack the true joint-probability structure of real patient data.
 
+
+## Phase 5: Model Alignment Audit — Predictions vs. Chanda (2024)
+
+This section critically compares the model's output behaviour against the adjusted statistical findings in the original paper.
+
+### 1. Where the Model Agrees with the Paper
+
+| Finding | Paper | Model | Status |
+| :--- | :--- | :--- | :--- |
+| **Death is a major outcome** | 21.3% mortality | Predicts death risk prominently | ✅ Directionally correct |
+| **Kabwe = DR-TB burden hotspot** | 60.7% of cases from Kabwe | Kabwe contributes to predictions | ✅ Correct (case volume) |
+| **HIV positivity is common** | 60.7% HIV-positive | HIV-positive contributes to model | ✅ Prevalence-correct |
+| **Adult age groups predominate** | Mean age 35.24 | Age group features are active | ✅ Correct |
+
+### 2. Where the Model Conflicts with the Paper
+
+| Variable | Paper's Adjusted Finding | Model Behaviour | Verdict |
+| :--- | :--- | :--- | :--- |
+| **Kabwe District** | aOR=0.544, **p=0.401** (non-significant) | Treated as a strong death-risk driver | ❌ **Conflict** — Kabwe predicts burden, not mortality |
+| **HIV Status** | aOR not significant for death (**p=0.069**) | Assigned a strong positive contribution | ⚠️ **Overclaims** — plausible but not paper-supported |
+| **Female Gender** | Male aOR=0.261, **p=0.003** (female = higher raw deaths, but regression uses female as reference) | `gender Female` appears as positive risk contributor | ⚠️ **Partially aligned** — aligns with descriptive counts, not adjusted regression |
+| **65% death prediction** | Overall mortality = 21.3% | Model outputs ~65% for high-risk profiles | ❌ **Far exceeds** paper rate — likely overfitting noise |
+
+### 3. MDR-TB Subgroup Warning
+
+The paper reports only **17 MDR-TB patients out of 183 (9.3%)**. The vast majority had RR-TB (164 cases, 89.6%). Any model predictions specific to the MDR-TB subgroup are based on a very small sample and should be treated as **statistically unstable**.
+
+### 4. Subgroup Validation Check
+
+To verify whether the 65% death prediction is justified, run the following in the Colab notebook:
+
+```python
+kabwe_profile = df[
+    (df["district"] == "Kabwe") &
+    (df["age_group"] == "Above45") &
+    (df["gender"] == "Female") &
+    (df["registration_group"] == "New") &
+    (df["drtb_type"] == "MDR-TB") &
+    (df["hiv_status"] == "Positive")
+]
+print(kabwe_profile["outcome"].value_counts(normalize=True) * 100)
+```
+
+If this subgroup has fewer than 5 records, the prediction is driven by **overfitting noise**, not a real clinical pattern.
+
+### 5. Overall Verdict
+
+> **The model is directionally plausible but over-amplifies Kabwe, HIV, and female gender.** It can be used as an exploratory prototype output for pipeline demonstration, but it must not be presented as evidence that any patient subgroup has a true 65% death risk until validated on real correlated patient data.
+
+| Category | Assessment |
+| :--- | :--- |
+| **Structural validity** | ✅ Dataset counts match the paper |
+| **Directional alignment** | ✅ Death, Kabwe burden, HIV prevalence are correct |
+| **Adjusted regression alignment** | ❌ Kabwe, HIV, and gender direction are overclaimed |
+| **Calibration** | ❌ 65% >> 21.3% overall mortality |
+| **Clinical deployment readiness** | ❌ Not ready — requires real patient data |

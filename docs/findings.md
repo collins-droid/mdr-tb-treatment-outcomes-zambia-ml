@@ -38,9 +38,16 @@ We performed a comprehensive statistical audit following Lecture 4 & 5 standards
 - **Outcome Distribution**: The 21.3% mortality rate matches the paper's reported aggregate statistics.
 
 ### 2. Inferential Testing (The "Signal Loss" Discovery)
-- **HIV vs Outcome**: Chi-square testing returned a p-value of **0.4435**, indicating no statistically significant association between HIV status and treatment outcome in the current dataset.
-- **Age vs Outcome**: Independent T-tests returned a p-value of **0.8671**, indicating no significant difference in mean age between success and poor outcome groups.
-- **Conclusion**: These results confirm that while the dataset matches *marginal* counts (total deaths, total HIV+), it lacks the *conditional* correlations present in real patient records (e.g., the known clinical link between HIV and mortality). This provides a clear statistical "red flag" that the model's predictions on this mock data should not be used for clinical inference.
+We compared our audit p-values against those reported in the original **Chanda (2024)** study to assess the "clinical signal" in the mock data:
+
+| Variable | Audit P-Value (Mock Data) | Chanda 2024 P-Value (Original) | Conclusion |
+| :--- | :--- | :--- | :--- |
+| **HIV Status** | **0.4435** (Non-Sig) | **0.026** (Significant) | Signal Lost |
+| **Age** | **0.8671** (Non-Sig) | **0.035** (Significant) | Signal Lost |
+| **Gender** | **<0.05** (Significant) | **0.003** (Significant) | Signal Preserved |
+
+- **Why this matters**: In the original study, HIV status was a significant predictor of mortality. In our reconstructed dataset, because the outcomes were randomized (shuffled) across HIV statuses while only maintaining total counts, the statistical link is broken.
+- **Conclusion**: This confirms that the current dataset is "circular" (reconstructed from averages) and lacks the joint-probability structure of real patient data. The model can currently only "learn" the Gender and Age-Group signals because those were explicitly hard-coded into the reconstruction logic.
 
 ### 3. Feature Importance (Random Forest)
 - The Random Forest model defaults to **Gender** and **Age Group** as primary predictors because these were the only variables explicitly constrained to mortality in the reconstruction logic.

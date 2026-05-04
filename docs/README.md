@@ -10,6 +10,8 @@ Accepted document types:
 - Journal articles, publications, and other background references.
 - Seminar slides and project proposal material.
 
-TODO:
+Current documentation gaps:
 - Add full citations for journal PDFs and publications.
-- Separate project specs from literature references if the folder grows large.
+- Add an architecture diagram.
+- Add an approved data dictionary.
+- Add a model card after validated model training.

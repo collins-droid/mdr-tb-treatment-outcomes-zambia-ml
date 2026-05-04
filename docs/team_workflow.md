@@ -84,7 +84,7 @@ Issues:
 - [ ] Load and explore CIDRZ dataset.
 - [ ] Handle missing values.
 - [ ] Encode categorical variables.
-- [ ] Train Logistic Regression baseline.
+- [ ] Train Logistic Regression outcome model.
 - [ ] Train Random Forest.
 - [ ] Train XGBoost.
 - [ ] Evaluate model using AUC and F1.

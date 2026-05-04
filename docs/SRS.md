@@ -8,7 +8,7 @@ The MDR-TB Treatment Outcomes Predictor is a clinical decision-support prototype
 
 The system will support data preparation, model training, model evaluation, prediction serving, and a future clinician-facing interface. It is intended for research, validation, and controlled pilot use before any real clinical deployment.
 
-Current repository status: documentation-first scaffold. Source files are placeholders with TODOs and docstrings until implementation tasks are approved.
+Current repository status: working academic prototype. Source files include a Streamlit frontend, FastAPI backend, trained outcome-model service, and tests. The model is trained on the reconstructed project dataset and is not clinically validated.
 
 ## Users
 

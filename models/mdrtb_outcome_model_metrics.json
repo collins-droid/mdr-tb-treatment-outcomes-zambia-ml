@@ -1,0 +1,89 @@
+{
+  "model_version": "logistic-reconstruction-v1",
+  "dataset": "reconstructed aggregate-count MDR-TB dataset",
+  "target": "outcome_class",
+  "features": [
+    "age_group",
+    "gender",
+    "hiv_status",
+    "registration_group",
+    "drtb_type",
+    "district"
+  ],
+  "n_rows": 183,
+  "train_rows": 137,
+  "test_rows": 46,
+  "accuracy": 0.34782608695652173,
+  "classes": [
+    "Died",
+    "Lost to Follow Up",
+    "Still on Treatment",
+    "Treatment Success"
+  ],
+  "classification_report": {
+    "Died": {
+      "precision": 0.35714285714285715,
+      "recall": 0.5,
+      "f1-score": 0.4166666666666667,
+      "support": 10.0
+    },
+    "Lost to Follow Up": {
+      "precision": 0.07692307692307693,
+      "recall": 0.3333333333333333,
+      "f1-score": 0.125,
+      "support": 3.0
+    },
+    "Still on Treatment": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 4.0
+    },
+    "Treatment Success": {
+      "precision": 0.6666666666666666,
+      "recall": 0.3448275862068966,
+      "f1-score": 0.45454545454545453,
+      "support": 29.0
+    },
+    "accuracy": 0.34782608695652173,
+    "macro avg": {
+      "precision": 0.2751831501831502,
+      "recall": 0.29454022988505746,
+      "f1-score": 0.24905303030303033,
+      "support": 46.0
+    },
+    "weighted avg": {
+      "precision": 0.5029463290332855,
+      "recall": 0.34782608695652173,
+      "f1-score": 0.3852931488801054,
+      "support": 46.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      5,
+      1,
+      0,
+      4
+    ],
+    [
+      2,
+      1,
+      0,
+      0
+    ],
+    [
+      1,
+      2,
+      0,
+      1
+    ],
+    [
+      6,
+      9,
+      4,
+      10
+    ]
+  ],
+  "important_limitation": "Trained on rows reconstructed from published aggregate counts. Use for academic prototype demonstration, not clinical deployment."
+}

@@ -1,1 +1,1 @@
-"""Planned data loading, cleaning, and preprocessing package."""
+"""Data loading, cleaning, and preprocessing package."""

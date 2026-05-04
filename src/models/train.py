@@ -94,7 +94,6 @@ def build_outcome_pipeline() -> Pipeline:
     )
     classifier = LogisticRegression(
         max_iter=1000,
-        class_weight="balanced",
         random_state=RANDOM_STATE,
     )
     return Pipeline(

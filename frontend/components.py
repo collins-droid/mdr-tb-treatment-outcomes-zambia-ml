@@ -183,13 +183,6 @@ def patient_form() -> dict[str, object] | None:
             drtb_type = st.selectbox("DR-TB type", DRTB_TYPES)
             district = st.selectbox("District", DISTRICTS)
 
-        year_of_diagnosis = st.number_input(
-            "Year of diagnosis",
-            min_value=2017,
-            max_value=2026,
-            value=2021,
-            step=1,
-        )
         submitted = st.form_submit_button("Assess patient", type="primary", use_container_width=True)
 
     if not submitted:
@@ -202,7 +195,6 @@ def patient_form() -> dict[str, object] | None:
         "registration_group": registration_group,
         "drtb_type": drtb_type,
         "district": district,
-        "year_of_diagnosis": int(year_of_diagnosis),
     }
 
 
@@ -230,7 +222,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     st.markdown(
         f"""
         <div class="result-card">
-            <div class="small-muted">Poor-outcome risk</div>
+            <div class="small-muted">Model-estimated poor-outcome risk</div>
             <div class="risk-value">{risk:.1%}</div>
             <div class="risk-band">
                 Risk level: <span class="{css_class}">{level}</span><br>
@@ -271,6 +263,7 @@ def prediction_panel(result: dict[str, object], source: str) -> None:
     for item in result["explanation"]:
         st.write(f"- **{item['label']}**: {item['effect']}")
 
+    st.caption("⚠️ This prediction is decision-support only and should be reviewed by clinical staff.")
     st.caption(str(result["disclaimer"]))
 
 

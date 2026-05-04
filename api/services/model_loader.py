@@ -54,10 +54,17 @@ class ModelService:
         classifier = self.model.named_steps["classifier"]
         transformed = preprocess.transform(frame)
         feature_names = preprocess.get_feature_names_out()
-        class_index = list(classifier.classes_).index(predicted_outcome)
-        coefficients = classifier.coef_[class_index]
         row = transformed.toarray()[0] if hasattr(transformed, "toarray") else transformed[0]
-        contributions = row * coefficients
+        if hasattr(classifier, "coef_"):
+            coefficients = classifier.coef_[class_index]
+            contributions = row * coefficients
+            is_directional = True
+        elif hasattr(classifier, "feature_importances_"):
+            contributions = row * classifier.feature_importances_
+            is_directional = False
+        else:
+            contributions = [0] * len(feature_names)
+            is_directional = False
 
         ranked = sorted(
             [
@@ -71,12 +78,17 @@ class ModelService:
         factors = []
         for feature_name, contribution in ranked[:4]:
             clean_name = feature_name.replace("categorical__", "").replace("_", " ")
-            direction = "increases" if contribution > 0 else "decreases"
+            if is_directional:
+                direction = "increases" if contribution > 0 else "decreases"
+                effect = f"This patient value {direction} the model score for {predicted_outcome}."
+            else:
+                effect = f"This patient value strongly contributed to the model's prediction."
+            
             factors.append(
                 RiskFactor(
                     feature=feature_name,
                     label=clean_name,
-                    effect=f"This patient value {direction} the model score for {predicted_outcome}.",
+                    effect=effect,
                     weight=round(contribution, 4),
                 )
             )

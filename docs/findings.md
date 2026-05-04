@@ -28,3 +28,38 @@ The baseline Logistic Regression served its purpose by validating the pipeline a
 - Do not attempt further hyperparameter tuning on the synthetic dataset.
 - Await the integration of real, correlated patient records before optimizing the Random Forest or switching to XGBoost.
 - The UI explainer module has been successfully updated to parse `feature_importances_` from the Random Forest instead of relying on linear coefficients, ensuring the application remains robust regardless of the underlying algorithm.
+
+## Phase 4: Statistical Audit & Clinical Signal Verification
+
+We performed a comprehensive clinical signal audit by comparing our reconstructed mock dataset against the original findings reported in the **Chanda (2024)** research paper.
+
+### 1. Structural Verification: Does the Data Tally?
+
+The totals in our reconstructed dataset match the paper's aggregate counts perfectly:
+
+| Metric | Original Paper (Chanda 2024) | Our Mock Dataset | Status |
+| :--- | :--- | :--- | :--- |
+| **Total Sample (N)** | 183 | 183 | ✅ Match |
+| **Mean Age** | 35.24 years | ~35.2 years | ✅ Match |
+| **Gender Balance** | 57.9% Male | 57.9% Male | ✅ Match |
+| **Mortality Rate** | 21.3% (39 Deaths) | 21.3% (39 Deaths) | ✅ Match |
+| **HIV Prevalence** | 60.7% Positive | 60.7% Positive | ✅ Match |
+
+### 2. Inferential Testing: The "Signal Loss" Discovery
+
+While the **counts** match, the **statistical relationships (signals)** have drifted from the original research due to the reconstruction process:
+
+| Variable | Audit P-Value (Mock Data) | Chanda 2024 P-Value (Original) | Conclusion |
+| :--- | :--- | :--- | :--- |
+| **HIV Status** | **0.4435** (Non-Sig) | **0.026** (Significant) | **Signal Lost** |
+| **Age** | **0.8671** (Non-Sig) | **0.035** (Significant) | **Signal Lost** |
+| **Gender** | **<0.05** (Significant) | **0.003** (Significant) | **Signal Preserved** |
+
+- **Why this matters**: In the original study, HIV status was a significant predictor of mortality. In our reconstructed dataset, because outcomes were randomized (shuffled) across HIV statuses to protect privacy while only maintaining total counts, the statistical link is broken.
+- **Gender Paradox**: Gender remains significant only because we explicitly "nudged" the death outcomes in the code to match the paper's specific count of 16 Male vs 23 Female deaths.
+
+### 3. Conclusion for Research Use
+Our dataset is a perfect **structural replica** (it looks right and has the right proportions), but it is a **clinical ghost**. It correctly simulates the environment of the Central Province, but the model cannot "re-discover" the HIV signal because that signal was randomized during reconstruction. 
+
+This confirms that the model's predictions on this mock data are for **software demonstration and pipeline testing only**, as they lack the true joint-probability structure of real patient data.
+

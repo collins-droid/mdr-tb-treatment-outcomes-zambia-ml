@@ -129,13 +129,13 @@ def apply_page_styles() -> None:
         }
         
         .footer {
-            border-top: 1px solid var(--border);
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            color: #ffffff !important;
+            margin-top: 4rem;
+            padding: 2rem;
+            background: #ffffff;
+            color: #121212 !important;
             font-size: 0.9rem;
-            display: flex;
-            align-items: center;
+            border-radius: 8px;
+            border: 1px solid #eeeeee;
         }
         
         div[data-testid="stTabs"] button {
@@ -364,7 +364,7 @@ def footer_logo() -> None:
     cols = st.columns([0.72, 0.28], vertical_alignment="center")
     with cols[0]:
         st.markdown(
-            "<div style='color: white; font-size: 0.9rem;'>MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration.</div>",
+            "<div style='color: #121212; font-size: 0.9rem; font-weight: 500;'>MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration.</div>",
             unsafe_allow_html=True
         )
     with cols[1]:

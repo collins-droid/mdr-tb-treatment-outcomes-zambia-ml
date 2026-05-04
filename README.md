@@ -76,10 +76,22 @@ For the full statistical audit and p-value comparison, see [docs/findings.md](do
 
 ## Model Findings & Fixes
 
-During the recent transition to a production-ready prototype, a significant model behavior issue was identified and resolved:
-- **Overconfident Mortality Prediction Issue:** The model was originally predicting a disproportionately high probability for "Died" and other minority classes. 
-- **Cause & Fix:** The overconfidence was caused by the `class_weight="balanced"` hyperparameter in `LogisticRegression`, which forced the model to artificially upweight the baseline probabilities for minority classes. By removing `class_weight="balanced"`, the model probability baseline correctly matches the observed class distribution. As a result, the classification accuracy improved from ~34.7% to 60.8%.
-- **Year of Diagnosis Review:** Initial theories suggested the `year_of_diagnosis` variable was causing leakage/censoring bias. A codebase review showed `year_of_diagnosis` was never actually included in the model's predictive features; it was merely a vestigial UI input. To prevent further confusion about potential data leakage, `year_of_diagnosis` was removed entirely from the UI intake form.
+### v1 Issues (Logistic Regression baseline)
+- **Overconfident Mortality Prediction:** The model originally predicted disproportionately high probabilities for "Died" due to `class_weight="balanced"` in `LogisticRegression`. Removing it improved accuracy from ~34.7% to 60.8%.
+- **Year of Diagnosis:** Removed as a vestigial UI input — it was never in the model feature set.
+
+### v2 Fixes (Random Forest — Calibrated)
+Following a formal **Model Alignment Audit** against Chanda (2024)'s adjusted regression table, three critical issues were identified and resolved:
+
+| Issue | Root Cause | Fix Applied |
+| :--- | :--- | :--- |
+| **~65% death predictions** far above the paper's 21.3% overall mortality | RF unconstrained on 183 rows — memorising training noise | `max_depth=4`, `min_samples_leaf=5`, `CalibratedClassifierCV (isotonic)` |
+| **Kabwe over-amplified** as a mortality driver | District included as a feature despite aOR=0.544, **p=0.401** (non-sig) in paper | **Removed `district` from training features** |
+| **No systematic hyperparameter search** | All RF parameters were defaults | `GridSearchCV` over `{max_depth, min_samples_leaf, n_estimators}` using stratified 5-fold CV |
+
+The updated model is versioned as **`randomforest-calibrated-v2`** and retrains automatically on Streamlit Cloud deployment.
+
+For the full alignment audit and evidence, see [docs/findings.md](docs/findings.md).
 
 ## Important Clinical Note
 

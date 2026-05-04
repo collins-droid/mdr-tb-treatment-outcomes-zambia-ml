@@ -132,3 +132,58 @@ If this subgroup has fewer than 5 records, the prediction is driven by **overfit
 | **Adjusted regression alignment** | ❌ Kabwe, HIV, and gender direction are overclaimed |
 | **Calibration** | ❌ 65% >> 21.3% overall mortality |
 | **Clinical deployment readiness** | ❌ Not ready — requires real patient data |
+
+
+## Phase 6: Model v2 — Issues Found & Fixes Implemented
+
+Following the Phase 5 alignment audit, three concrete issues were identified and resolved in the training pipeline (`src/models/train.py`).
+
+### Issue 1: Overconfident Probability Predictions (~65% death)
+
+**Problem:** The v1 Random Forest was predicting death probabilities of ~65% for certain patient profiles, far above the paper's overall 21.3% mortality rate. The model was unconstrained on only 183 training rows — it was memorising noise in the training data.
+
+**Evidence:** Paper-wide mortality rate = 21.3%. A ~65% prediction for the Kabwe/Female/HIV+/MDR-TB subgroup requires proof that this subgroup has that empirical death rate. Subgroup analysis showed fewer than 5 records matching that exact profile.
+
+**Fix:**
+- `max_depth=4` — caps tree depth so the model cannot memorise narrow subgroups.
+- `min_samples_leaf=5` — each leaf needs at least 5 samples, preventing 1–2 record overfitting.
+- `CalibratedClassifierCV(method="isotonic")` — maps raw RF probability scores to actual class frequencies observed in cross-validation. This is the most direct fix for overconfident predictions.
+
+---
+
+### Issue 2: Kabwe District Over-Amplified as a Mortality Driver
+
+**Problem:** District was included as a training feature, causing the model to treat Kabwe as a strong mortality predictor. The paper says the opposite: Kabwe had an **adjusted odds ratio of 0.544 and p=0.401** in the multivariate regression table — statistically non-significant. Kabwe is a **case-volume hotspot**, not an independent predictor of death.
+
+**Evidence:** Chanda (2024) Table 6 — District Kabwe aOR=0.544, 95% CI [0.132, 2.247], p=0.401.
+
+**Fix:** **`district` removed from `CALIBRATED_FEATURES`** in `train.py` and `FEATURE_ORDER` in `predict.py`. The remaining features (`age_group`, `gender`, `hiv_status`, `registration_group`, `drtb_type`) are all either significant in the paper or clinically plausible.
+
+---
+
+### Issue 3: No Systematic Hyperparameter Search
+
+**Problem:** The v1 RF used default sklearn parameters (`n_estimators=100`, no `max_depth`, no `min_samples_leaf`), which are tuned for large datasets. On 183 rows they cause high variance overfitting.
+
+**Fix:** `GridSearchCV` added with `StratifiedKFold(n_splits=5)` and `scoring="f1_macro"` over the grid:
+
+```
+n_estimators   : [100, 200]
+max_depth      : [3, 4, 5]
+min_samples_leaf: [3, 5, 8]
+```
+
+Best parameters are selected automatically and the winning pipeline is then passed to `CalibratedClassifierCV`.
+
+---
+
+### Summary of Changes (v1 → v2)
+
+| Change | Rationale |
+| :--- | :--- |
+| Removed `district` from features | Non-significant in paper (p=0.401) — was inflating Kabwe as mortality driver |
+| `max_depth=4`, `min_samples_leaf=5` | Prevents overfitting on 183 rows |
+| `class_weight="balanced"` | Ensures minority classes (Died=39, LTFU=11) are correctly weighted |
+| `GridSearchCV` | Evidence-based hyperparameter selection instead of sklearn defaults |
+| `CalibratedClassifierCV (isotonic)` | Directly corrects overconfident ~65% probability outputs |
+| Model version bumped to `randomforest-calibrated-v2` | Ensures old artifact is replaced on next Streamlit deploy |

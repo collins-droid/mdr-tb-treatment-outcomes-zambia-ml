@@ -17,11 +17,12 @@ import joblib
 
 import pandas as pd
 from sklearn.compose import ColumnTransformer
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score, roc_auc_score
+from sklearn.model_selection import train_test_split, LearningCurveDisplay
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder
+import matplotlib.pyplot as plt
 
 from src.features.feature_engineering import PREDICTION_FEATURES, add_binary_outcomes, encode_prediction_features
 from src.utils.helpers import project_path
@@ -92,8 +93,8 @@ def build_outcome_pipeline() -> Pipeline:
         ],
         remainder="drop",
     )
-    classifier = LogisticRegression(
-        max_iter=1000,
+    classifier = RandomForestClassifier(
+        n_estimators=100,
         random_state=RANDOM_STATE,
     )
     return Pipeline(
@@ -135,9 +136,21 @@ def train_outcome_model(
     pipeline = build_outcome_pipeline()
     pipeline.fit(x_train, y_train)
     y_pred = pipeline.predict(x_test)
+    y_pred_proba = pipeline.predict_proba(x_test)
+
+    # Generate Learning Curve
+    fig, ax = plt.subplots(figsize=(8, 6))
+    LearningCurveDisplay.from_estimator(
+        build_outcome_pipeline(), x, y, cv=5, scoring="accuracy", ax=ax, n_jobs=-1
+    )
+    ax.set_title("Learning Curve (Random Forest)")
+    curve_path = project_path("docs", "learning_curve.png")
+    curve_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(curve_path)
+    plt.close(fig)
 
     metrics: dict[str, Any] = {
-        "model_version": "logistic-reconstruction-v1",
+        "model_version": "randomforest-reconstruction-v1",
         "dataset": "reconstructed aggregate-count MDR-TB dataset",
         "target": OUTCOME_TARGET_COLUMN,
         "features": PREDICTION_FEATURES,
@@ -145,6 +158,8 @@ def train_outcome_model(
         "train_rows": int(len(x_train)),
         "test_rows": int(len(x_test)),
         "accuracy": float(accuracy_score(y_test, y_pred)),
+        "f1_score": float(f1_score(y_test, y_pred, average="macro")),
+        "roc_auc": float(roc_auc_score(y_test, y_pred_proba, multi_class="ovr")),
         "classes": list(pipeline.named_steps["classifier"].classes_),
         "classification_report": classification_report(y_test, y_pred, output_dict=True, zero_division=0),
         "confusion_matrix": confusion_matrix(y_test, y_pred, labels=list(pipeline.named_steps["classifier"].classes_)).tolist(),

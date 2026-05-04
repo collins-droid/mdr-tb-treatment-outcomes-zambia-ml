@@ -20,6 +20,7 @@ from frontend.components import (
     page_header,
     patient_form,
     prediction_panel,
+    metrics_panel,
     validity_panel,
 )
 from frontend.config import DEFAULT_API_URL, VALIDITY_WARNING
@@ -48,7 +49,7 @@ with st.sidebar:
     else:
         st.info("Using local trained outcome model.")
 
-tab_screen, tab_data, tab_validity = st.tabs(["Assessment", "Reconstructed Dataset", "Validation Notes"])
+tab_screen, tab_data, tab_metrics, tab_validity = st.tabs(["Assessment", "Reconstructed Dataset", "Model Metrics", "Validation Notes"])
 
 with tab_screen:
     left, right = st.columns([0.9, 1.1], gap="large")
@@ -77,6 +78,9 @@ with tab_screen:
 
 with tab_data:
     dataset_panel(load_reconstructed_mock_data())
+
+with tab_metrics:
+    metrics_panel()
 
 with tab_validity:
     validity_panel()

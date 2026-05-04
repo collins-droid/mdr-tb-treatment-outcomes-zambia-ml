@@ -295,6 +295,40 @@ def dataset_panel(df: pd.DataFrame | None) -> None:
     )
 
 
+def metrics_panel() -> None:
+    st.markdown('<div class="section-label">Model Evaluation Metrics</div>', unsafe_allow_html=True)
+    st.subheader("Performance on Reconstructed Test Set")
+
+    import json
+    from src.utils.helpers import project_path
+
+    metrics_path = project_path("models", "mdrtb_outcome_model_metrics.json")
+    if not metrics_path.exists():
+        st.warning("Metrics artifact not found. Please run the training pipeline.")
+        return
+
+    with open(metrics_path, "r") as f:
+        metrics = json.load(f)
+
+    cols = st.columns(3)
+    cols[0].metric("Accuracy", f"{metrics['accuracy']:.1%}")
+    cols[1].metric("Macro F1-Score", f"{metrics.get('f1_score', 0):.3f}")
+    cols[2].metric("ROC-AUC (OVR)", f"{metrics.get('roc_auc', 0):.3f}")
+
+    st.markdown("### Training Diagnostics")
+    curve_path = project_path("docs", "learning_curve.png")
+    if curve_path.exists():
+        st.image(str(curve_path), caption="Learning Curve (Accuracy vs Training Examples)", use_container_width=True)
+    else:
+        st.info("Learning curve visualization not found.")
+
+    with st.expander("Detailed classification report"):
+        st.json(metrics["classification_report"])
+    
+    st.caption(f"Model version: {metrics['model_version']}")
+    st.caption("Note: Metrics are based on a 25% hold-out test set of the reconstructed aggregate data.")
+
+
 def validity_panel() -> None:
     st.markdown('<div class="section-label">Validation boundary</div>', unsafe_allow_html=True)
     st.subheader("What This Prototype Can And Cannot Support")

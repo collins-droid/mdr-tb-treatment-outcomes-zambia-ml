@@ -1,5 +1,5 @@
 {
-  "model_version": "logistic-reconstruction-v1",
+  "model_version": "randomforest-reconstruction-v1",
   "dataset": "reconstructed aggregate-count MDR-TB dataset",
   "target": "outcome_class",
   "features": [
@@ -13,7 +13,9 @@
   "n_rows": 183,
   "train_rows": 137,
   "test_rows": 46,
-  "accuracy": 0.6086956521739131,
+  "accuracy": 0.5434782608695652,
+  "f1_score": 0.21122994652406418,
+  "roc_auc": 0.5937392248398958,
   "classes": [
     "Died",
     "Lost to Follow Up",
@@ -22,9 +24,9 @@
   ],
   "classification_report": {
     "Died": {
-      "precision": 0.25,
+      "precision": 0.14285714285714285,
       "recall": 0.1,
-      "f1-score": 0.14285714285714285,
+      "f1-score": 0.11764705882352941,
       "support": 10.0
     },
     "Lost to Follow Up": {
@@ -40,22 +42,22 @@
       "support": 4.0
     },
     "Treatment Success": {
-      "precision": 0.6428571428571429,
-      "recall": 0.9310344827586207,
-      "f1-score": 0.7605633802816901,
+      "precision": 0.6486486486486487,
+      "recall": 0.8275862068965517,
+      "f1-score": 0.7272727272727273,
       "support": 29.0
     },
-    "accuracy": 0.6086956521739131,
+    "accuracy": 0.5434782608695652,
     "macro avg": {
-      "precision": 0.22321428571428573,
-      "recall": 0.25775862068965516,
-      "f1-score": 0.22585513078470826,
+      "precision": 0.19787644787644787,
+      "recall": 0.23189655172413792,
+      "f1-score": 0.21122994652406418,
       "support": 46.0
     },
     "weighted avg": {
-      "precision": 0.4596273291925467,
-      "recall": 0.6086956521739131,
-      "f1-score": 0.5105415099291399,
+      "precision": 0.439986570421353,
+      "recall": 0.5434782608695652,
+      "f1-score": 0.48407347128574746,
       "support": 46.0
     }
   },
@@ -63,14 +65,14 @@
     [
       1,
       0,
-      0,
-      9
+      1,
+      8
     ],
     [
+      1,
       0,
       0,
-      0,
-      3
+      2
     ],
     [
       1,
@@ -79,10 +81,10 @@
       3
     ],
     [
-      2,
+      4,
       0,
-      0,
-      27
+      1,
+      24
     ]
   ],
   "important_limitation": "Trained on rows reconstructed from published aggregate counts. Use for academic prototype demonstration, not clinical deployment."

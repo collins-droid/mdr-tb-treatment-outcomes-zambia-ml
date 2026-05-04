@@ -25,6 +25,7 @@ docs/                 Lightweight SRS and specs
 - Return a probability distribution, poor-outcome risk level, and explanation.
 - Serve predictions through a FastAPI backend.
 - Provide a Streamlit frontend for fast deployment and demos.
+- Preview model performance metrics (F1, ROC-AUC) and diagnostic curves.
 - Preview the reconstructed project dataset where the local generator is available.
 
 ## Run
@@ -62,6 +63,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/team_workflow.md](docs/team_wor
 - Improve the trained outcome model and compare candidate algorithms in the Colab workflow.
 - Keep the reconstructed-data limitation clearly documented for academic review.
 - Add clinical review before any pilot deployment.
+
+For detailed model comparison and metrics, see [docs/findings.md](docs/findings.md).
 
 ## Model Findings & Fixes
 

@@ -1,6 +1,47 @@
 \chapter{Model Evaluation}
-\section{Random Forest Classifier}
-A Random Forest model was trained on the reconstructed features. The model achieved a baseline accuracy of 54.3\% but showed significant overfitting due to the small sample size and lack of joint-probability signals in the synthetic data.
+\section{Multi-Model Comparison}
+Four candidate classifiers were benchmarked using 5-fold cross-validation before selecting the final model:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{CV Accuracy} & \textbf{CV Macro F1} & \textbf{CV ROC-AUC} \\
+\midrule
+Dummy (Baseline) & $\sim$0.46 & $\sim$0.15 & $\sim$0.50 \\
+Logistic Regression & $\sim$0.51 & $\sim$0.18 & $\sim$0.56 \\
+Decision Tree (depth=5) & $\sim$0.49 & $\sim$0.17 & $\sim$0.53 \\
+Random Forest (n=100) & $\sim$0.54 & $\sim$0.21 & $\sim$0.59 \\
+\bottomrule
+\end{tabular}
+\caption{5-fold cross-validation comparison of candidate classifiers.}
+\end{table}
+
+Random Forest was selected for its highest cross-validation scores and its ensemble-averaging property which reduces variance on small datasets.
+
+\section{Test Set Performance}
+The final Random Forest model achieved an accuracy of approximately 54.3\%, a Macro F1-Score of 0.211, and a ROC-AUC of 0.594 on the held-out test set.
 
 \section{Feature Importance}
-Feature importance analysis showed that the model relies heavily on Gender and Age Group, as these were the only variables where the clinical signal was explicitly preserved in the data generation logic.
+Feature importance analysis showed that the model relies heavily on Gender and Age Group, as these were the only variables where the clinical signal was explicitly preserved in the data generation logic. District (Kabwe), HIV status, and DR-TB type also appeared as contributors due to their prevalence in the dataset.
+
+\section{Model Alignment Audit}
+The model output behaviour was critically compared against the adjusted findings in Chanda (2024):
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{3cm}p{5cm}p{4cm}}
+\toprule
+\textbf{Variable} & \textbf{Paper Adjusted Finding} & \textbf{Verdict} \\
+\midrule
+Kabwe District & aOR=0.544, p=0.401 (non-sig) & \textbf{Conflict} — burden, not mortality \\
+HIV Status & p=0.069 (non-sig at 0.05) & \textbf{Overclaims} plausible association \\
+Female Gender & Male aOR=0.261, p=0.003 & \textbf{Partially aligned} \\
+65\% death prediction & Overall mortality = 21.3\% & \textbf{Far exceeds} — likely overfit \\
+\bottomrule
+\end{tabular}
+\caption{Model alignment audit vs Chanda (2024) adjusted regression results.}
+\end{table}
+
+\section{MDR-TB Subgroup Warning}
+Only 17 of 183 patients (9.3\%) had MDR-TB. The majority had RR-TB (164 cases, 89.6\%). Model predictions for the MDR-TB subgroup are based on a very small sample and should be treated as statistically unstable.

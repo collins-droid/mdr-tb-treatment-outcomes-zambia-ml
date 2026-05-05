@@ -28,7 +28,8 @@ FEATURE_ORDER = (
     "hiv_status",
     "registration_group",
     "drtb_type",
-    "district",
+    # district excluded: Kabwe aOR=0.544, p=0.401 in Chanda (2024) adjusted regression.
+    # It is a case-volume signal, not an independent mortality predictor.
 )
 
 

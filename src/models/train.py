@@ -80,23 +80,42 @@ class TrainingResult:
     model_version: str
 
 
-def normalize_outcome(outcome: str) -> str:
-    """Map paper outcome labels to application outcome classes."""
+# Target outcome classes — mirrors the paper's evaluated outcomes.
+# "Still on Treatment" is excluded: these are censored observations (outcome not
+# yet determined, predominantly incomplete 2021 records). Including them would
+# add a fourth class that is neither a success nor a failure, degrading model signal.
+# Three clinically meaningful prediction targets (excludes censored records).
+TARGET_OUTCOME_CLASSES = ["Treatment Success", "Died", "Lost to Follow Up"]
+
+
+def normalize_outcome(outcome: str) -> str | None:
+    """Map paper outcome labels to the three evaluated outcome classes.
+
+    Returns None for 'Still on Treatment': these are censored observations
+    (outcome not yet determined). It makes no clinical sense to predict this
+    class for a new patient, so they are excluded from training.
+    """
     if outcome in {"Cured", "Treatment Completed", "Treatment Success"}:
         return "Treatment Success"
     if outcome == "Lost to Follow Up":
         return "Lost to Follow Up"
     if outcome == "Died":
         return "Died"
-    return "Still on Treatment"
+    return None  # Still on Treatment = censored, not a valid prediction class
 
 
 def prepare_training_frame(df: pd.DataFrame) -> pd.DataFrame:
-    """Prepare the project dataset for model training."""
+    """Prepare the project dataset for model training.
+
+    Drops 'Still on Treatment' rows before training — these are censored
+    observations (predominantly incomplete 2021 records per the paper).
+    """
     prepared = add_binary_outcomes(df)
     prepared[OUTCOME_TARGET_COLUMN] = prepared["outcome"].map(normalize_outcome)
-    if prepared[OUTCOME_TARGET_COLUMN].isna().any():
-        raise ValueError("training data contains unsupported outcome labels")
+    n_censored = prepared[OUTCOME_TARGET_COLUMN].isna().sum()
+    if n_censored > 0:
+        print(f"  Dropping {n_censored} censored 'Still on Treatment' rows.")
+        prepared = prepared.dropna(subset=[OUTCOME_TARGET_COLUMN]).copy()
     return prepared
 
 

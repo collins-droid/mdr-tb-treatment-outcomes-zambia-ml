@@ -1,5 +1,33 @@
 {
-  "model_version": "randomforest-reconstruction-v1",
+  "model_version": "randomforest-calibrated-v2",
+  "model_selection_rationale": "Four classifiers benchmarked via stratified 5-fold CV. Random Forest selected for highest macro F1. GridSearchCV tuned max_depth and min_samples_leaf. CalibratedClassifierCV (isotonic) applied to correct overconfident probability estimates identified in Phase 5 alignment audit vs Chanda (2024).",
+  "calibration_note": "District excluded from features: Kabwe had aOR=0.544, p=0.401 (non-significant) in the Chanda (2024) adjusted regression. Including district was inflating Kabwe as a mortality driver when it is a case-volume signal only.",
+  "model_comparison": {
+    "Dummy (Baseline)": {
+      "cv_accuracy_mean": 0.697,
+      "cv_accuracy_std": 0.0,
+      "cv_f1_macro_mean": 0.2738,
+      "cv_f1_macro_std": 0.0
+    },
+    "Logistic Regression": {
+      "cv_accuracy_mean": 0.4182,
+      "cv_accuracy_std": 0.1057,
+      "cv_f1_macro_mean": 0.328,
+      "cv_f1_macro_std": 0.0967
+    },
+    "Decision Tree (depth=4)": {
+      "cv_accuracy_mean": 0.3758,
+      "cv_accuracy_std": 0.097,
+      "cv_f1_macro_mean": 0.2846,
+      "cv_f1_macro_std": 0.0547
+    },
+    "Random Forest (tuned)": {
+      "cv_accuracy_mean": 0.4667,
+      "cv_accuracy_std": 0.1308,
+      "cv_f1_macro_mean": 0.3455,
+      "cv_f1_macro_std": 0.14
+    }
+  },
   "dataset": "reconstructed aggregate-count MDR-TB dataset",
   "target": "outcome_class",
   "features": [
@@ -7,26 +35,24 @@
     "gender",
     "hiv_status",
     "registration_group",
-    "drtb_type",
-    "district"
+    "drtb_type"
   ],
-  "n_rows": 183,
-  "train_rows": 137,
-  "test_rows": 46,
-  "accuracy": 0.5434782608695652,
-  "f1_score": 0.21122994652406418,
-  "roc_auc": 0.5937392248398958,
+  "n_rows": 165,
+  "train_rows": 123,
+  "test_rows": 42,
+  "accuracy": 0.6666666666666666,
+  "f1_score": 0.31627576403695806,
+  "roc_auc": 0.39285999361430396,
   "classes": [
     "Died",
     "Lost to Follow Up",
-    "Still on Treatment",
     "Treatment Success"
   ],
   "classification_report": {
     "Died": {
-      "precision": 0.14285714285714285,
+      "precision": 0.25,
       "recall": 0.1,
-      "f1-score": 0.11764705882352941,
+      "f1-score": 0.14285714285714285,
       "support": 10.0
     },
     "Lost to Follow Up": {
@@ -35,56 +61,41 @@
       "f1-score": 0.0,
       "support": 3.0
     },
-    "Still on Treatment": {
-      "precision": 0.0,
-      "recall": 0.0,
-      "f1-score": 0.0,
-      "support": 4.0
-    },
     "Treatment Success": {
-      "precision": 0.6486486486486487,
-      "recall": 0.8275862068965517,
-      "f1-score": 0.7272727272727273,
+      "precision": 0.7105263157894737,
+      "recall": 0.9310344827586207,
+      "f1-score": 0.8059701492537313,
       "support": 29.0
     },
-    "accuracy": 0.5434782608695652,
+    "accuracy": 0.6666666666666666,
     "macro avg": {
-      "precision": 0.19787644787644787,
-      "recall": 0.23189655172413792,
-      "f1-score": 0.21122994652406418,
-      "support": 46.0
+      "precision": 0.3201754385964912,
+      "recall": 0.34367816091954023,
+      "f1-score": 0.31627576403695806,
+      "support": 42.0
     },
     "weighted avg": {
-      "precision": 0.439986570421353,
-      "recall": 0.5434782608695652,
-      "f1-score": 0.48407347128574746,
-      "support": 46.0
+      "precision": 0.550125313283208,
+      "recall": 0.6666666666666666,
+      "f1-score": 0.5905168037364199,
+      "support": 42.0
     }
   },
   "confusion_matrix": [
     [
       1,
       0,
-      1,
-      8
+      9
     ],
     [
       1,
-      0,
       0,
       2
     ],
     [
-      1,
+      2,
       0,
-      0,
-      3
-    ],
-    [
-      4,
-      0,
-      1,
-      24
+      27
     ]
   ],
   "important_limitation": "Trained on rows reconstructed from published aggregate counts. Use for academic prototype demonstration, not clinical deployment."

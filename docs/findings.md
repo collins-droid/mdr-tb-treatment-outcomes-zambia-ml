@@ -187,3 +187,16 @@ Best parameters are selected automatically and the winning pipeline is then pass
 | `GridSearchCV` | Evidence-based hyperparameter selection instead of sklearn defaults |
 | `CalibratedClassifierCV (isotonic)` | Directly corrects overconfident ~65% probability outputs |
 | Model version bumped to `randomforest-calibrated-v2` | Ensures old artifact is replaced on next Streamlit deploy |
+
+### v2 Model Performance Metrics
+
+After dropping the 18 censored records and applying the fixes above, the calibrated model evaluated on the held-out test set achieved the following metrics:
+
+```text
+Calibrating probabilities (isotonic regression)...
+  Accuracy : 0.667
+  Macro F1 : 0.316
+  ROC-AUC  : 0.393
+```
+
+These metrics represent a much more realistic, clinically grounded evaluation baseline than the uncalibrated v1 iteration.

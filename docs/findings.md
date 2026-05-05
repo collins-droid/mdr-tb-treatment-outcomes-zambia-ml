@@ -76,3 +76,114 @@ Our dataset is a perfect **structural replica** (it looks right and has the righ
 
 This confirms that the model's predictions on this mock data are for **software demonstration and pipeline testing only**, as they lack the true joint-probability structure of real patient data.
 
+
+## Phase 5: Model Alignment Audit — Predictions vs. Chanda (2024)
+
+This section critically compares the model's output behaviour against the adjusted statistical findings in the original paper.
+
+### 1. Where the Model Agrees with the Paper
+
+| Finding | Paper | Model | Status |
+| :--- | :--- | :--- | :--- |
+| **Death is a major outcome** | 21.3% mortality | Predicts death risk prominently | ✅ Directionally correct |
+| **Kabwe = DR-TB burden hotspot** | 60.7% of cases from Kabwe | Kabwe contributes to predictions | ✅ Correct (case volume) |
+| **HIV positivity is common** | 60.7% HIV-positive | HIV-positive contributes to model | ✅ Prevalence-correct |
+| **Adult age groups predominate** | Mean age 35.24 | Age group features are active | ✅ Correct |
+
+### 2. Where the Model Conflicts with the Paper
+
+| Variable | Paper's Adjusted Finding | Model Behaviour | Verdict |
+| :--- | :--- | :--- | :--- |
+| **Kabwe District** | aOR=0.544, **p=0.401** (non-significant) | Treated as a strong death-risk driver | ❌ **Conflict** — Kabwe predicts burden, not mortality |
+| **HIV Status** | aOR not significant for death (**p=0.069**) | Assigned a strong positive contribution | ⚠️ **Overclaims** — plausible but not paper-supported |
+| **Female Gender** | Male aOR=0.261, **p=0.003** (female = higher raw deaths, but regression uses female as reference) | `gender Female` appears as positive risk contributor | ⚠️ **Partially aligned** — aligns with descriptive counts, not adjusted regression |
+| **65% death prediction** | Overall mortality = 21.3% | Model outputs ~65% for high-risk profiles | ❌ **Far exceeds** paper rate — likely overfitting noise |
+
+### 3. MDR-TB Subgroup Warning
+
+The paper reports only **17 MDR-TB patients out of 183 (9.3%)**. The vast majority had RR-TB (164 cases, 89.6%). Any model predictions specific to the MDR-TB subgroup are based on a very small sample and should be treated as **statistically unstable**.
+
+### 4. Subgroup Validation Check
+
+To verify whether the 65% death prediction is justified, run the following in the Colab notebook:
+
+```python
+kabwe_profile = df[
+    (df["district"] == "Kabwe") &
+    (df["age_group"] == "Above45") &
+    (df["gender"] == "Female") &
+    (df["registration_group"] == "New") &
+    (df["drtb_type"] == "MDR-TB") &
+    (df["hiv_status"] == "Positive")
+]
+print(kabwe_profile["outcome"].value_counts(normalize=True) * 100)
+```
+
+If this subgroup has fewer than 5 records, the prediction is driven by **overfitting noise**, not a real clinical pattern.
+
+### 5. Overall Verdict
+
+> **The model is directionally plausible but over-amplifies Kabwe, HIV, and female gender.** It can be used as an exploratory prototype output for pipeline demonstration, but it must not be presented as evidence that any patient subgroup has a true 65% death risk until validated on real correlated patient data.
+
+| Category | Assessment |
+| :--- | :--- |
+| **Structural validity** | ✅ Dataset counts match the paper |
+| **Directional alignment** | ✅ Death, Kabwe burden, HIV prevalence are correct |
+| **Adjusted regression alignment** | ❌ Kabwe, HIV, and gender direction are overclaimed |
+| **Calibration** | ❌ 65% >> 21.3% overall mortality |
+| **Clinical deployment readiness** | ❌ Not ready — requires real patient data |
+
+
+## Phase 6: Model v2 — Issues Found & Fixes Implemented
+
+Following the Phase 5 alignment audit, three concrete issues were identified and resolved in the training pipeline (`src/models/train.py`).
+
+### Issue 1: Overconfident Probability Predictions (~65% death)
+
+**Problem:** The v1 Random Forest was predicting death probabilities of ~65% for certain patient profiles, far above the paper's overall 21.3% mortality rate. The model was unconstrained on only 183 training rows — it was memorising noise in the training data.
+
+**Evidence:** Paper-wide mortality rate = 21.3%. A ~65% prediction for the Kabwe/Female/HIV+/MDR-TB subgroup requires proof that this subgroup has that empirical death rate. Subgroup analysis showed fewer than 5 records matching that exact profile.
+
+**Fix:**
+- `max_depth=4` — caps tree depth so the model cannot memorise narrow subgroups.
+- `min_samples_leaf=5` — each leaf needs at least 5 samples, preventing 1–2 record overfitting.
+- `CalibratedClassifierCV(method="isotonic")` — maps raw RF probability scores to actual class frequencies observed in cross-validation. This is the most direct fix for overconfident predictions.
+
+---
+
+### Issue 2: Kabwe District Over-Amplified as a Mortality Driver
+
+**Problem:** District was included as a training feature, causing the model to treat Kabwe as a strong mortality predictor. The paper says the opposite: Kabwe had an **adjusted odds ratio of 0.544 and p=0.401** in the multivariate regression table — statistically non-significant. Kabwe is a **case-volume hotspot**, not an independent predictor of death.
+
+**Evidence:** Chanda (2024) Table 6 — District Kabwe aOR=0.544, 95% CI [0.132, 2.247], p=0.401.
+
+**Fix:** **`district` removed from `CALIBRATED_FEATURES`** in `train.py` and `FEATURE_ORDER` in `predict.py`. The remaining features (`age_group`, `gender`, `hiv_status`, `registration_group`, `drtb_type`) are all either significant in the paper or clinically plausible.
+
+---
+
+### Issue 3: No Systematic Hyperparameter Search
+
+**Problem:** The v1 RF used default sklearn parameters (`n_estimators=100`, no `max_depth`, no `min_samples_leaf`), which are tuned for large datasets. On 183 rows they cause high variance overfitting.
+
+**Fix:** `GridSearchCV` added with `StratifiedKFold(n_splits=5)` and `scoring="f1_macro"` over the grid:
+
+```
+n_estimators   : [100, 200]
+max_depth      : [3, 4, 5]
+min_samples_leaf: [3, 5, 8]
+```
+
+Best parameters are selected automatically and the winning pipeline is then passed to `CalibratedClassifierCV`.
+
+---
+
+### Summary of Changes (v1 → v2)
+
+| Change | Rationale |
+| :--- | :--- |
+| Removed `district` from features | Non-significant in paper (p=0.401) — was inflating Kabwe as mortality driver |
+| `max_depth=4`, `min_samples_leaf=5` | Prevents overfitting on 183 rows |
+| `class_weight="balanced"` | Ensures minority classes (Died=39, LTFU=11) are correctly weighted |
+| `GridSearchCV` | Evidence-based hyperparameter selection instead of sklearn defaults |
+| `CalibratedClassifierCV (isotonic)` | Directly corrects overconfident ~65% probability outputs |
+| Model version bumped to `randomforest-calibrated-v2` | Ensures old artifact is replaced on next Streamlit deploy |

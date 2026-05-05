@@ -381,14 +381,39 @@ def validity_panel() -> None:
     )
 
 
+
 def footer_logo() -> None:
-    st.markdown('<div class="footer">', unsafe_allow_html=True)
-    cols = st.columns([0.72, 0.28], vertical_alignment="center")
-    with cols[0]:
-        st.markdown(
-            "<div style='color: #121212; font-size: 0.9rem; font-weight: 500;'>MDR-TB Treatment Outcomes Predictor | Research prototype for controlled review and demonstration.</div>",
-            unsafe_allow_html=True
-        )
-    with cols[1]:
-        st.image(LOGO_PATH, use_container_width=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+    import base64
+    from pathlib import Path
+
+    logo_path = Path(LOGO_PATH)
+    logo_b64 = ""
+    if logo_path.exists():
+        mime = "image/webp" if logo_path.suffix == ".webp" else "image/png"
+        logo_b64 = base64.b64encode(logo_path.read_bytes()).decode()
+        img_tag = f'<img src="data:{mime};base64,{logo_b64}" style="max-height:60px; max-width:180px; object-fit:contain;" />'
+    else:
+        img_tag = '<span style="color:#888;font-size:0.8rem;">Logo not found</span>'
+
+    st.markdown(
+        f"""
+        <div style="
+            background:#ffffff;
+            border-radius:8px;
+            border:1px solid #e0e0e0;
+            margin-top:3rem;
+            padding:1.25rem 2rem;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:1rem;
+        ">
+            <div style="color:#121212;font-size:0.9rem;font-weight:500;line-height:1.5;">
+                MDR-TB Treatment Outcomes Predictor<br>
+                <span style="color:#555;font-size:0.8rem;">Research prototype for controlled review and demonstration.</span>
+            </div>
+            {img_tag}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )

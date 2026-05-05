@@ -19,7 +19,8 @@ TREATMENT_OUTCOME_LABELS = (
     "Treatment Success",
     "Died",
     "Lost to Follow Up",
-    "Still on Treatment",
+    # "Still on Treatment" excluded: this is a censored historical observation,
+    # not a valid prediction class for a new patient intake.
 )
 
 FEATURE_ORDER = (
@@ -137,16 +138,15 @@ def predict_patient_risk(patient: dict[str, object]) -> PredictionResult:
     ltfu_risk = 11 / 183
     poor_outcome_risk = min(1.0, mortality + ltfu_risk)
     success_probability = max(0.0, 1.0 - poor_outcome_risk)
-    still_on_treatment_probability = 18 / 183
 
-    probabilities = {
-        "Treatment Success": round(success_probability, 4),
-        "Died": round(mortality, 4),
-        "Lost to Follow Up": round(ltfu_risk, 4),
-        "Still on Treatment": round(still_on_treatment_probability, 4),
+    # Normalised over the three valid outcome classes only.
+    raw = {
+        "Treatment Success": success_probability,
+        "Died": mortality,
+        "Lost to Follow Up": ltfu_risk,
     }
-    total = sum(probabilities.values())
-    probabilities = {key: round(value / total, 4) for key, value in probabilities.items()}
+    total = sum(raw.values())
+    probabilities = {k: round(v / total, 4) for k, v in raw.items()}
 
     predicted_outcome = max(probabilities, key=probabilities.get)
     return PredictionResult(
